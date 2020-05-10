@@ -3,15 +3,29 @@ import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      meaningOfLife: 42,
-    };
-  }
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     meaningOfLife: 42 + this.props.increment,
+  //   };
+  //   this.props = props;
+  // }
+  state = {
+    meaningOfLife: 42,
+  };
 
   handleClick = () => {
-    this.setState({ meaningOfLife: this.state.meaningOfLife + 1 });
+    this.setState(
+      (prevState, prevProps) => {
+        return {
+          meaningOfLife: prevState.meaningOfLife + prevProps.increment,
+        };
+      },
+      () => {
+        console.log('async: ' + this.state.meaningOfLife);
+      }
+    );
+    console.log('sync: ' + this.state.meaningOfLife);
   };
 
   render() {
